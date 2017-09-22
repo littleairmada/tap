@@ -38,7 +38,7 @@ def encryptAES(data):
     EncodeAES = lambda c, s: base64.b64encode(c.encrypt(pad(s)))
 
     secret = os.urandom(BLOCK_SIZE)
-    cipher = AES.new(secret)
+    cipher = AES.new(secret, AES.MODE_CTR)
 
     aes = EncodeAES(cipher, data)
     fileopen = file("/usr/share/tap/config", "r")
@@ -82,7 +82,7 @@ def decryptAES(data):
 	    fileopen = file("/root/.tap/store", "r")
 	    key = fileopen.read()
 	    secret = base64.b64decode(key)
-	    cipher = AES.new(secret)
+	    cipher = AES.new(secret, AES.MODE_CTR)
 	    aes = DecodeAES(cipher, data)
 	    return str(aes)
 
