@@ -71,7 +71,7 @@ def encryptAES(data):
     EncodeAES = lambda c, s: base64.b64encode(c.encrypt(pad(s)))
     DecodeAES = lambda c, e: c.decrypt(base64.b64decode(e)).rstrip(PADDING)
     secret = os.urandom(BLOCK_SIZE)
-    cipher = AES.new(secret)
+    cipher = AES.new(secret, AES.MODE_CTR)
     secret = base64.b64encode(secret)
     aes = EncodeAES(cipher, data)
     return str(aes) + "::::" + secret
